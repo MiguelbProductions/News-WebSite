@@ -265,6 +265,14 @@ nav {
     overflow: hidden;
 } 
 
+#Other-News.Self-New .NewContainer {
+    margin: 5% 0;
+}
+
+#Other-News.Self-New .New-Title {
+    font-size: 2.2vw;
+}
+
 .site-footer {
     padding: 1.25em 2em;
 

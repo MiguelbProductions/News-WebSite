@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/:slug", (req, res) => {
-    res.send(req.params.slug)
+    res.render("Notice.html", {})
 })
 
 const PORT = 7001
