@@ -1,0 +1,27 @@
+<%- include("Partials/header.html") %> 
+
+<section id="Other-News" class="Search-Page">
+    <div id="News-Content">
+        <div id="MoreViews-News">
+            <h2><%= searchResults.length %> News Founded</h2>
+            
+            <div id="MoreViews-NewsList">
+                <% searchResults.forEach(function(post){ %>
+                    <div class="Block-NewContainer">
+                        <img src="<%= post.Image %>">
+                        <div class="Block-NewContent">
+                            <h3 class="Block-New-Category">
+                                <%= post.Category %>
+                            </h3>
+                            <p class="Block-New-Description">
+                                <%= post.Description %>
+                            </p>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("Partials/footer.html") %> 

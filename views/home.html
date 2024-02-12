@@ -4,12 +4,10 @@
         <div id="HeadLineContainerOverlay"></div>
 
         <div id="HeadlineContent">
-            <h2>Headline Header 1</h2>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti, iure sapiente nobis voluptatum excepturi in distinctio, velit nesciunt ratione quos officia at, error eaque laudantium inventore ab dolorum. Perferendis, quisquam.
-            </p>
+            <h2><%= posts[0].Category %></h2>
+            <p><%= posts[0].Description %></p>            
         </div>
-        <img src="/public/Data/Images/Backgrounds/Example1.jpeg" alt="Headline-BackgroundImage">
+        <img src="<%= posts[0].Image %>" alt="Headline-BackgroundImage">
     </div>
 </section>
 
@@ -20,111 +18,42 @@
 
     <div id="News-Content">
         <div id="Last-News">
-            <div class="NewContainer">
-                <img src="/public/Data/Images/Backgrounds/Surfing.jpeg" alt="">
-                <div class="NewContent">
-                    <p class="New-Category">
-                        More about Adventure
-                    </p>
-                    <h2 class="New-Title">
-                        Random Example about Surf
-                    </h2>
-                    <p class="New-Description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                    </p>
+            <% 
+            const remainingPosts = posts.slice(1);
+            remainingPosts.forEach(function(post){ %>
+                <div class="NewContainer" onclick="window.location.href='<%= post._id %>'">
+                    <img src="<%= post.Image %>">
+                    <div class="NewContent">
+                        <p class="New-Category">
+                            <%= post.Category %>
+                        </p>
+                        <h2 class="New-Title">
+                            <%= post.Title %>
+                        </h2>
+                        <p class="New-Description">
+                            <%= post.Description %>
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="NewContainer">
-                <img src="/public/Data/Images/Backgrounds/Surfing.jpeg" alt="">
-                <div class="NewContent">
-                    <p class="New-Category">
-                        More about Adventure
-                    </p>
-                    <h2 class="New-Title">
-                        Random Example about Surf
-                    </h2>
-                    <p class="New-Description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                    </p>
-                </div>
-            </div>
-            <div class="NewContainer">
-                <img src="/public/Data/Images/Backgrounds/Surfing.jpeg" alt="">
-                <div class="NewContent">
-                    <p class="New-Category">
-                        More about Adventure
-                    </p>
-                    <h2 class="New-Title">
-                        Random Example about Surf
-                    </h2>
-                    <p class="New-Description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                    </p>
-                </div>
-            </div>
-            <div class="NewContainer">
-                <img src="/public/Data/Images/Backgrounds/Surfing.jpeg" alt="">
-                <div class="NewContent">
-                    <p class="New-Category">
-                        More about Adventure
-                    </p>
-                    <h2 class="New-Title">
-                        Random Example about Surf
-                    </h2>
-                    <p class="New-Description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                    </p>
-                </div>
-            </div>
+            <% }); %>    
         </div>
         <div id="MoreViews-News">
             <h2>Most Viewed</h2>
 
             <div id="MoreViews-NewsList">
-                <div class="Block-NewContainer">
-                    <img src="/public/Data/Images/Backgrounds/Surfing.jpeg">
-                    <div class="Block-NewContent">
-                        <h3 class="Block-New-Category">
-                            More about Adventure
-                        </h3>
-                        <p class="Block-New-Description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                        </p>
+                <% mostViewed.forEach(function(post){ %>
+                    <div class="Block-NewContainer">
+                        <img src="<%= post.Image %>" alt="Post image">
+                        <div class="Block-NewContent">
+                            <h3 class="Block-New-Category">
+                                <%= post.Category %>
+                            </h3>
+                            <p class="Block-New-Description">
+                                <%= post.Description %>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="Block-NewContainer">
-                    <img src="/public/Data/Images/Backgrounds/Surfing.jpeg">
-                    <div class="Block-NewContent">
-                        <h3 class="Block-New-Category">
-                            More about Adventure
-                        </h3>
-                        <p class="Block-New-Description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                        </p>
-                    </div>
-                </div>
-                <div class="Block-NewContainer">
-                    <img src="/public/Data/Images/Backgrounds/Surfing.jpeg">
-                    <div class="Block-NewContent">
-                        <h3 class="Block-New-Category">
-                            More about Adventure
-                        </h3>
-                        <p class="Block-New-Description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                        </p>
-                    </div>
-                </div>
-                <div class="Block-NewContainer">
-                    <img src="/public/Data/Images/Backgrounds/Surfing.jpeg">
-                    <div class="Block-NewContent">
-                        <h3 class="Block-New-Category">
-                            More about Adventure
-                        </h3>
-                        <p class="Block-New-Description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem rerum dolor omnis numquam odit voluptates atque, quos praesentium porro aut accusamus ullam sed, molestiae excepturi, ipsa vitae libero dicta nemo.
-                        </p>
-                    </div>
-                </div>
+                <% }); %>
             </div>
         </div>
     </div>
