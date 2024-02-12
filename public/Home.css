@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+
+    background-color: #2e93c2;
+
+    padding: 1em 4em;
+
+    justify-content: space-between;
+}
+
+#Logo {
+    font-size: 1.85em;
+    font-weight: 300;
+
+    color: white;
+}
+
+#Search-Bar {
+    display: flex;
+
+    background-color: #2479a0;
+    color: white;
+
+    padding: 0.3em 0.6em 0.3em 0.7em;
+    margin-left: 1.5em;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    border-radius: 0.9em;
+    border: 1px solid #164e68;
+}
+
+#Search-Bar input {
+    all: unset;
+
+    margin-left: 0.5em;
+
+    color: white;
+}
+
+#Search-Bar input::placeholder {
+    color: #d8d4d4;
+}
+
+#Headline {
+    display: flex;
+
+    margin: 10vw;
+    
+    justify-content: center;
+}
+
+#HeadlineContainer {
+    position: relative;
+}
+
+#HeadlineContainer img {
+    width: 100%;
+    height: 100%;
+    
+    border-radius: 1em;
+}
+
+#HeadlineContainer #HeadlineContent {
+    position: absolute;
+    
+    max-width: 60%;
+    max-height: 40%;
+
+    bottom: 0;
+    left: 0;
+
+    color: white;
+
+    margin: 4%;
+
+    overflow: hidden;
+}
+
+#HeadlineContainer #HeadlineContent h2 {
+    font-size: 2.25vw;
+
+    margin-bottom: 0.5em;
+}
+
+#HeadlineContainer #HeadlineContent p {
+    font-size: 1.1vw;
+}
+
+#HeadlineContainer #HeadLineContainerOverlay {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.35);
+
+    border-radius: 1em;
+}
+
+#Other-News {
+    display: flex;
+
+    background-color: #e0dede;
+
+    padding-bottom: 3%;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#Other-News > h2 {
+    font-size: 2.8vw;
+
+    padding: 1em 0;
+
+    text-align: center;
+}
+
+#Other-News #News-Content {
+    display: flex;
+
+    margin: 0 5%;
+}
+
+#Other-News #News-Content #Last-News {
+    display: grid;
+
+    grid-template-columns: auto auto;
+
+    width: 65%;
+}
+
+#Other-News #News-Content #MoreViews-News {
+    width: 30%;
+
+    margin: 2%;
+
+    text-align: center;
+}
+
+#Other-News #News-Content #MoreViews-News h2 {
+    font-size: 2vw;
+
+    width: 100%;
+
+    color: white;
+    background-color: #146fc4;
+
+    padding: 0.8em 0;
+
+    border-radius: 0.8em 0.8em 0 0;
+}
+
+#Other-News #News-Content #MoreViews-News #MoreViews-NewsList {
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 0 0 0.8em 0.8em;
+}
+
+.Block-NewContainer {
+    display: flex;
+
+    padding: 2em 0;
+    margin: 0 2em;
+
+    align-items: flex-start;
+
+    overflow: hidden;
+}
+
+.Block-NewContainer > img {    
+    width: 40%;
+    height: auto;
+    aspect-ratio: 1/1;
+
+    border-radius: 1em;
+}
+
+.Block-NewContainer .Block-NewContent {
+    margin-left: 1em;
+
+    text-align: left;
+    overflow: hidden;
+}
+
+.Block-NewContainer .Block-NewContent .Block-New-Category {
+    font-size: 1vw;
+
+    color: #0a3864;
+
+    margin: 0.5em;
+}
+
+.Block-NewContainer .Block-NewContent .Block-New-Description {
+    font-size: 1vw;
+
+    max-height: 10vw;
+
+    margin: 0.5em;
+
+    color: #555555;
+
+    overflow: hidden;
+} 
+
+.NewContainer {
+    background-color: white;
+
+    margin: 5%;
+
+    overflow: hidden;
+
+    border-radius: 0.7em;
+}
+
+.NewContainer img {
+    width: 100%;
+}
+
+.NewContainer .NewContent {
+    margin: 2em;
+}
+
+.NewContainer .NewContent .New-Category {
+    font-weight: 500;
+
+    color: #1b79d1;
+
+    margin: 1em 0;
+}
+
+.NewContainer .NewContent .New-Title {
+    color: #1a1919;
+
+    margin-bottom: 0.7em;
+}
+
+.NewContainer .NewContent .New-Description {
+    font-size: 1vw;
+
+    max-height: 15vw;
+    
+    color: #313030;
+
+    overflow: hidden;
+} 
+
+@media only screen and (max-width: 850px)  {
+    #Other-News #News-Content #Last-News {   
+        grid-template-columns: auto;
+    }
+    
+    .Block-NewContainer {
+        height: auto;
+        
+        padding: 1em 0; 
+
+        align-items: center;
+        flex-direction: column; 
+    }
+
+    .Block-NewContainer > img {
+        width: 100%; 
+        height: auto;
+
+        margin-bottom: 1em;
+    }
+
+    .Block-NewContainer .Block-NewContent {
+        margin-left: 0;
+
+        text-align: center; 
+    }
+
+    .Block-NewContainer .Block-NewContent .Block-New-Description {
+        max-height: 15vw;
+    
+        overflow: hidden;
+    }    
+}
