@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "/views"))
 app.get("/", (req, res) => {
 
     if (req.query.search != null) res.send(`Searching... (${req.query.search})`)
-    else res.render("Home.ejs", {})
+    else res.render("Home.html", {})
 })
 
 app.get("/:slug", (req, res) => {

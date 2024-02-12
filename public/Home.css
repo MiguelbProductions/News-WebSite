@@ -57,7 +57,7 @@ nav {
     display: flex;
 
     margin: 10vw;
-    
+
     justify-content: center;
 }
 
@@ -191,6 +191,8 @@ nav {
     height: auto;
     aspect-ratio: 1/1;
 
+    object-fit: cover;
+
     border-radius: 1em;
 }
 
@@ -263,36 +265,75 @@ nav {
     overflow: hidden;
 } 
 
+.site-footer {
+    padding: 1.5em 2em;
+
+    background-color: #2e93c2;
+    color: white;
+    
+    text-align: center;
+}
+
+.site-footer .container {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.site-footer #enterprise-name {
+    font-weight: 300;
+}
+
+.site-footer .social-links {
+    margin-top: 10px;
+}
+
+.site-footer .social-links a {
+    font-size: 24px;
+
+    color: white;
+
+    margin: 0 10px;
+}
+
+@media (min-width: 768px) {
+    .site-footer .container {
+        flex-direction: row;
+    }
+}
+
+
 @media only screen and (max-width: 850px)  {
     #Other-News #News-Content #Last-News {   
         grid-template-columns: auto;
     }
-    
-    .Block-NewContainer {
-        height: auto;
-        
-        padding: 1em 0; 
 
-        align-items: center;
-        flex-direction: column; 
+    #Other-News #News-Content {
+        flex-direction: column;
+
     }
 
-    .Block-NewContainer > img {
-        width: 100%; 
-        height: auto;
-
-        margin-bottom: 1em;
+    #Other-News #News-Content #Last-News, #Other-News #News-Content #MoreViews-News {
+        width: 100%;
     }
 
-    .Block-NewContainer .Block-NewContent {
-        margin-left: 0;
+    .Block-NewContainer .Block-NewContent .Block-New-Category, .Block-NewContainer .Block-NewContent .Block-New-Description {
+        font-size: unset;
 
-        text-align: center; 
+        max-height: 20vw;
     }
 
-    .Block-NewContainer .Block-NewContent .Block-New-Description {
-        max-height: 15vw;
-    
-        overflow: hidden;
-    }    
+    #Other-News #News-Content #MoreViews-News {
+        margin: 5% 0;
+    }
+
+    .NewContainer {
+        margin: 5% 0;
+    }
+
+    #Other-News > h2 {
+        font-size: 7vw;
+    }
 }
