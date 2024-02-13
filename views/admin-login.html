@@ -1,0 +1,27 @@
+<%- include("Partials/header.html") %> 
+
+<section id="Admin-Login">
+    <div class="login-container">
+        <h2 class="login-title">Login</h2>
+        <form method="post" class="login-form">
+            <div class="form-group">
+                <label for="user">Username</label>
+                <input type="text" id="user" name="user" value="<%= typeof user !== 'undefined' ? user : '' %>" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <input type="password" id="pass" name="pass" placeholder="Enter your password" required>
+            </div>
+
+            <% if (typeof error !== 'undefined' && error != 'Invalid' && error) { %>
+                <div class="error-box">
+                    <%= error %>
+                </div>
+            <% } %>
+            
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</section>
+
+<%- include("Partials/footer.html") %> 

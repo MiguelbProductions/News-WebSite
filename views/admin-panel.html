@@ -1,0 +1,19 @@
+<%- include("Partials/header.html") %> 
+
+<section id="Admin-Panel">
+    <h2>Post Management</h2>
+    <div>
+        <a href="/admin/new-post">Add New Post</a>
+    </div>
+    <ul>
+        <% posts.forEach(function(post){ %>
+            <li>
+                Title: <%= post.Title %>, Category: <%= post.Category %>, Views: <%= post.Views %>, By: <%= post.By %>
+                <a href="/admin/edit/<%= post._id %>"><i class="fas fa-edit"></i></a>
+                <a href="/admin/delete/<%= post._id %>" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a>
+            </li>
+        <% }); %>
+    </ul>
+</section>
+
+<%- include("Partials/footer.html") %> 

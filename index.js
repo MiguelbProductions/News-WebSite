@@ -3,6 +3,7 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const mongodb = require("mongodb")
 const { ObjectId } = require('mongodb'); 
+var session = require('express-session')
 
 const app = express()
 
@@ -21,6 +22,13 @@ app.engine("html", require("ejs").renderFile)
 app.set("view engine", "html")
 app.use("/public", express.static(path.join(__dirname, "public")))
 app.set("views", path.join(__dirname, "/views"))
+
+app.use(session({
+  secret: 'SECRETKEY',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}))
 
 app.get("/", async (req, res) => {
     if (req.query.search != null) {
@@ -85,6 +93,61 @@ app.get("/:slug", async (req, res) => {
     }
 
 })
+
+var Admins = [
+    {
+        User: "Miguel",
+        Pass: "123456789"
+    }
+]
+
+app.post("/admin/panel", (req, res) => {
+    const user = req.body.user;
+    const pass = req.body.pass;
+
+    var admin = Admins.find(adm => adm.User === user);
+    var password = Admins.find(adm => adm.Pass == pass);
+
+    let errorMsg = "Invalid";
+
+    if (!admin && !password) errorMsg += " username and password"
+    else if (!admin) errorMsg += " username"
+    else if (!password) errorMsg += " password"
+
+    errorMsg += "."
+
+    if (errorMsg != "Invalid.") res.render("admin-login", { user: user, error: errorMsg });
+    else req.session.login = user
+
+    res.redirect("/admin/panel")
+});
+
+app.get("/admin/panel", async (req, res) => {
+
+        try {
+            await client.connect();
+            const database = client.db(DB);
+            const collection = database.collection(Collection);
+            const posts = await collection.find({}).toArray();
+            res.render("admin-panel", { posts: posts });
+        } catch (error) {
+            console.error("Failed to fetch documents:", error);
+            res.status(500).send("Error fetching documents");
+        }
+    
+})
+
+app.get("/admin/new-post", (req, res) => {
+    if (req.session.login === undefined) {
+        res.redirect("/admin/login");
+    } else {
+        res.render("new-post");
+    }
+});
+
+app.post("/admin/new-post", async (req, res) => {
+    
+});
 
 const PORT = 7001
 app.listen(PORT, () => {
