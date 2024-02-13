@@ -10,7 +10,6 @@ The News Website project is a web application designed to publish and manage new
 - **EJS**: A templating engine used to generate dynamic HTML on the server-side.
 - **express-fileupload**: An Express.js middleware for handling file uploads.
 - **express-session**: An Express.js middleware for managing user sessions.
-- **Bootstrap**: A CSS framework used for styling pages and making them responsive.
 
 ## Features
 - **News Viewing**: Users can view the most recent news articles on the homepage.
