@@ -1,19 +1,40 @@
 <%- include("Partials/header.html") %> 
 
 <section id="Admin-Panel">
-    <h2>Post Management</h2>
-    <div>
-        <a href="/admin/new-post">Add New Post</a>
+    <div class="posts-listing">
+        <h2>Posts</h2>
+        <form method="get" action="/admin/new-post">
+            <button type="submit">Add Post</button>
+        </form>        
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Views</th>
+                    <th>By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% posts.forEach(function(post) { %>
+                <tr>
+                    <td><%= post.Title %></td>
+                    <td><%= post.Category %></td>
+                    <td><%= post.Views %></td>
+                    <td><%= post.By %></td>
+                    <td>
+                        <a href="/admin/edit/<%= post._id %>"><i class="fas fa-edit"></i></a>
+                        <a href="/admin/delete/<%= post._id %>" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this post?')) { document.getElementById('delete-form-<%= post._id %>').submit(); }"><i class="fas fa-trash-alt"></i></a>
+                        <form id="delete-form-<%= post._id %>" action="/admin/delete/<%= post._id %>" method="post" style="display: none;">
+                            <input type="hidden" name="_id" value="<%= post._id %>">
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
     </div>
-    <ul>
-        <% posts.forEach(function(post){ %>
-            <li>
-                Title: <%= post.Title %>, Category: <%= post.Category %>, Views: <%= post.Views %>, By: <%= post.By %>
-                <a href="/admin/edit/<%= post._id %>"><i class="fas fa-edit"></i></a>
-                <a href="/admin/delete/<%= post._id %>" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></a>
-            </li>
-        <% }); %>
-    </ul>
 </section>
 
 <%- include("Partials/footer.html") %> 

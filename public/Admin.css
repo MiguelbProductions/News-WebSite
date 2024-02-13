@@ -72,58 +72,130 @@ body, html {
     text-align: center;
 }
 
-
 #Admin-Panel {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#Admin-Panel h2 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-#Admin-Panel a {
-    display: inline-block;
-    background: #007bff;
-    color: white;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-#Admin-Panel ul {
-    list-style: none;
-    padding: 0;
-}
-
-#Admin-Panel ul li {
-    background: white;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
     display: flex;
-    justify-content: space-between;
+    height: 100%;
+    justify-content: center;
     align-items: center;
 }
 
-#Admin-Panel ul li a {
-    margin-left: 10px;
+#Admin-Panel .new-post-form, .posts-listing {
+    width: 80%;
+    padding: 2em 2em 3em 2em;
+    border-radius: 8px;
 }
 
-#Admin-Panel ul li a i {
-    color: #333;
+#Admin-Panel .new-post-form h2, .posts-listing h2 {
+    font-size: 2.5vw;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#Admin-Panel form input, #Admin-Panel form button {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.2em;
+    float: right;
+    margin-bottom: 1em;
+}
+
+#Admin-Panel form button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+#Admin-Panel table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#Admin-Panel table, #Admin-Panel th, #Admin-Panel td {
+    border: 1px solid #ddd;
+}
+
+#Admin-Panel th, #Admin-Panel td {
+    padding: 10px;
+    text-align: left;
+}
+
+#Admin-Panel th {
+    background-color: #007bff;
+    color: white;
+}
+
+#Admin-Panel td a {
+    margin-right: 10px;
+}
+
+#Admin-Panel td:last-child {
+    display: flex;
+    justify-content: space-around;
 }
 
 .fas.fa-edit {
-    color: #ffc107;
+    color: green;
 }
 
 .fas.fa-trash-alt {
     color: #dc3545;
+}
+
+#New-Post, #Edit-Post {
+    display: flex;
+    align-items: center;    
+    height: 100%;
+}
+
+#New-Post .container, #Edit-Post .container {
+    width: 75%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 150px;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
 }

@@ -3,14 +3,26 @@
 <section id="New-Post">
     <div class="container">
         <h2>Add New Post</h2>
-        <form action="/admin/new-post" method="post">
+        <form action="/admin/new-post" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" required>
             </div>
             <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>            
+            <div class="form-group">
                 <label for="category">Category</label>
                 <input type="text" id="category" name="category" required>
+            </div>
+            <div class="form-group">
+                <label for="by">By</label>
+                <input type="text" id="by" name="by" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="postimage" required>
             </div>
             <div class="form-group">
                 <label for="content">Content</label>

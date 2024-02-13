@@ -1,0 +1,36 @@
+<%- include("Partials/header.html") %> 
+
+<section id="Edit-Post">
+    <div class="container">
+        <h2>Edit Post</h2>
+        <form action="/admin/edit/<%= post._id %>" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<%= post.Title %>" required>
+            </div>~
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required><%= post.Description %></textarea>
+            </div>            
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" value="<%= post.Category %>" required>
+            </div>
+            <div class="form-group">
+                <label for="by">By</label>
+                <input type="text" id="by" name="by" value="<%= post.By %>" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image (leave blank to keep current image)</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" required><%= post.Content %></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Update Post</button>
+        </form>
+    </div>
+</section>
+
+<%- include("Partials/footer.html") %> 

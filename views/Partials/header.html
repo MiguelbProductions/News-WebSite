@@ -11,14 +11,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </head>
     <body>
-        <nav>
+        <nav <% if (isAdminPage) { %> style="justify-content: center;" <% } %>>
             <div id="Logo">
                 <b>News</b>WebSite
+                <% if (isAdminPage) { %>
+                    | Admin Panel
+                <% } %>
             </div>
-            <form method="get">
-                <div id="Search-Bar">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input name="search" type="text" placeholder="Search...">
-                </div>
-            </form>
+            <% if (!isAdminPage) { %>
+                <form method="get">
+                    <div id="Search-Bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input name="search" type="text" placeholder="Search...">
+                    </div>
+                </form>
+            <% } %>
         </nav>
+        
