@@ -25,7 +25,7 @@
 
             <div id="MoreViews-NewsList">
                 <% mostViewed.forEach(function(post){ %>
-                    <div class="Block-NewContainer">
+                    <div class="Block-NewContainer" onclick="window.location.href='<%= post._id %>'">
                         <img src="<%= post.Image %>">
                         <div class="Block-NewContent">
                             <h3 class="Block-New-Category">

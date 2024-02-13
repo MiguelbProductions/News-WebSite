@@ -1,7 +1,7 @@
 <%- include("Partials/header.html") %> 
 <section id="Headline">
     <div id="HeadlineContainer">
-        <div id="HeadLineContainerOverlay"></div>
+        <div id="HeadLineContainerOverlay" onclick="window.location.href='<%= posts[0]._id %>'"></div>
 
         <div id="HeadlineContent">
             <h2><%= posts[0].Category %></h2>
@@ -42,7 +42,7 @@
 
             <div id="MoreViews-NewsList">
                 <% mostViewed.forEach(function(post){ %>
-                    <div class="Block-NewContainer">
+                    <div class="Block-NewContainer" onclick="window.location.href='<%= post._id %>'">
                         <img src="<%= post.Image %>" alt="Post image">
                         <div class="Block-NewContent">
                             <h3 class="Block-New-Category">
