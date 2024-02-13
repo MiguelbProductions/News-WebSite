@@ -21,8 +21,12 @@
                 <input type="text" id="by" name="by" required>
             </div>
             <div class="form-group">
-                <label for="image">Image</label>
-                <input type="file" id="image" name="postimage" required>
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" id="imageUpload" name="imageUpload">
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">or Image URL</label>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="http://example.com/image.jpg">
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
@@ -34,5 +38,15 @@
         </form>
     </div>
 </section>
+
+<script>
+    document.getElementById('imageUpload').onchange = function() {
+        document.getElementById('imageUrl').value = '';
+    };
+
+    document.getElementById('imageUrl').onchange = function() {
+        document.getElementById('imageUpload').value = '';
+    };
+</script>
 
 <%- include("Partials/footer.html") %> 

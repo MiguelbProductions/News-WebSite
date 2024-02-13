@@ -151,17 +151,42 @@ app.get("/admin/new-post", (req, res) => {
 });
 
 app.post("/admin/new-post", async (req, res) => {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
-    }
+    let imagePath = '';
 
-    let uploadedImage = req.files.postimage;
+    if (req.files && req.files.imageUpload) {
+        let uploadedImage = req.files.imageUpload;
+        const imageName = Date.now() + path.extname(uploadedImage.name);
+        await uploadedImage.mv(path.join(__dirname, '/public/PostsIMG/', imageName), async (err) => {
+            if (err) {
+                console.error("Failed to upload image:", err);
+                return res.status(500).send(err);
+            }
 
-    const imageName = Date.now() + path.extname(uploadedImage.name);
+            imagePath = '/public/PostsIMG/' + imageName;
 
-    uploadedImage.mv(path.join(__dirname, '/public/PostsImg/', imageName), async (err) => {
-        if (err)
-            return res.status(500).send(err);
+            try {
+                await client.connect();
+                const database = client.db(DB);
+                const collection = database.collection(Collection);
+                await collection.insertOne({
+                    Title: req.body.title,
+                    Category: req.body.category,
+                    Description: req.body.description,
+                    By: req.body.by,
+                    Content: req.body.content,
+                    Image: imagePath,
+                    Views: 0
+                });
+
+                res.redirect("/admin/panel");
+            } catch (error) {
+                console.error("Failed to add new post:", error);
+                res.status(500).send("Error adding new post");
+            }
+        });
+    } else if (req.body.imageUrl) {
+        imagePath = req.body.imageUrl;
+
         try {
             await client.connect();
             const database = client.db(DB);
@@ -169,18 +194,19 @@ app.post("/admin/new-post", async (req, res) => {
             await collection.insertOne({
                 Title: req.body.title,
                 Category: req.body.category,
-                By: req.body.by,
                 Description: req.body.description,
+                By: req.body.by,
                 Content: req.body.content,
-                Image: '/public/PostsIMG/' + imageName,
+                Image: imagePath,
                 Views: 0
             });
+
             res.redirect("/admin/panel");
         } catch (error) {
-            console.error("Failed to add new post:", error);
-            res.status(500).send("Error adding new post");
+            console.error("Failed to add new post with image URL:", error);
+            res.status(500).send("Error adding new post with image URL");
         }
-    });
+    }
 });
 
 app.get("/admin/edit/:_id", async (req, res) => {
@@ -196,13 +222,26 @@ app.get("/admin/edit/:_id", async (req, res) => {
     }
 });
 
-app.post("/admin/edit/:id", async (req, res) => {    
+app.post("/admin/edit/:id", async (req, res) => {
     try {
         await client.connect();
         const database = client.db(DB);
         const collection = database.collection(Collection);
-
         const postId = new ObjectId(req.params.id);
+
+        let imagePath;
+        if (req.files && req.files.imageUpload && req.files.imageUpload.name) {
+            let uploadedImage = req.files.imageUpload;
+            const imageName = Date.now() + path.extname(uploadedImage.name);
+            const uploadPath = path.join(__dirname, 'public', 'PostsIMG', imageName);
+            await uploadedImage.mv(uploadPath);
+            imagePath = '/public/PostsIMG/' + imageName;
+        } else if (req.body.imageUrl) {
+            imagePath = req.body.imageUrl;
+        } else {
+            const currentPost = await collection.findOne({ _id: postId });
+            imagePath = currentPost.Image;
+        }
 
         await collection.updateOne(
             { _id: postId },
@@ -211,18 +250,19 @@ app.post("/admin/edit/:id", async (req, res) => {
                     Title: req.body.title,
                     Category: req.body.category,
                     Description: req.body.description,
+                    Content: req.body.content,
                     By: req.body.by,
+                    Image: imagePath
                 }
             }
         );
 
         res.redirect("/admin/panel");
     } catch (error) {
-        console.error("Failed to edit post:", error);
-        res.status(500).send("Error editing post");
+        console.error("Failed to update post:", error);
+        res.status(500).send("Error updating post");
     }
 });
-
 
 app.post("/admin/delete/:_id", async (req, res) => {
     try {

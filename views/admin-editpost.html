@@ -3,7 +3,7 @@
 <section id="Edit-Post">
     <div class="container">
         <h2>Edit Post</h2>
-        <form action="/admin/edit/<%= post._id %>" method="post">
+        <form action="/admin/edit/<%= post._id %>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" value="<%= post.Title %>" required>
@@ -21,8 +21,12 @@
                 <input type="text" id="by" name="by" value="<%= post.By %>" required>
             </div>
             <div class="form-group">
-                <label for="image">Image (leave blank to keep current image)</label>
-                <input type="file" id="image" name="image">
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" id="imageUpload" name="imageUpload">
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">or Image URL</label>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="http://example.com/image.jpg">
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
@@ -32,5 +36,16 @@
         </form>
     </div>
 </section>
+
+
+<script>
+    document.getElementById('imageUpload').onchange = function() {
+        document.getElementById('imageUrl').value = '';
+    };
+
+    document.getElementById('imageUrl').onchange = function() {
+        document.getElementById('imageUpload').value = '';
+    };
+</script>
 
 <%- include("Partials/footer.html") %> 
