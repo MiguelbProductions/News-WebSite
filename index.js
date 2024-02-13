@@ -126,13 +126,18 @@ app.post("/admin/panel", (req, res) => {
     errorMsg += "."
 
     if (errorMsg != "Invalid.") res.render("admin-login", { user: user, error: errorMsg });
-    else req.session.login = user
+    else {
+        req.session.login = user
 
-    res.redirect("/admin/panel")
+        res.redirect("/admin/panel")
+    }
+
 });
 
 app.get("/admin/panel", async (req, res) => {
-
+    if (req.session.login === undefined) {
+        res.render("admin-login", {});
+    } else {
         try {
             await client.connect();
             const database = client.db(DB);
@@ -143,11 +148,15 @@ app.get("/admin/panel", async (req, res) => {
             console.error("Failed to fetch documents:", error);
             res.status(500).send("Error fetching documents");
         }
-    
+    }    
 })
 
 app.get("/admin/new-post", (req, res) => {
-    res.render("admin-newpost");
+    if (req.session.login === undefined) {
+        res.redirect("/admin/panel");
+    } else {
+        res.render("admin-newpost");
+    }
 });
 
 app.post("/admin/new-post", async (req, res) => {
@@ -210,70 +219,82 @@ app.post("/admin/new-post", async (req, res) => {
 });
 
 app.get("/admin/edit/:_id", async (req, res) => {
-    try {
-        await client.connect();
-        const database = client.db(DB);
-        const collection = database.collection(Collection);
-        const post = await collection.findOne({ _id: new ObjectId(req.params._id) });
-        res.render("admin-editpost", { post: post }); 
-    } catch (error) {
-        console.error("Failed to fetch post for editing:", error);
-        res.status(500).send("Error fetching post for editing");
+    if (req.session.login === undefined) {
+        res.redirect("/admin/panel");
+    } else {
+        try {
+            await client.connect();
+            const database = client.db(DB);
+            const collection = database.collection(Collection);
+            const post = await collection.findOne({ _id: new ObjectId(req.params._id) });
+            res.render("admin-editpost", { post: post }); 
+        } catch (error) {
+            console.error("Failed to fetch post for editing:", error);
+            res.status(500).send("Error fetching post for editing");
+        }
     }
 });
 
 app.post("/admin/edit/:id", async (req, res) => {
-    try {
-        await client.connect();
-        const database = client.db(DB);
-        const collection = database.collection(Collection);
-        const postId = new ObjectId(req.params.id);
-
-        let imagePath;
-        if (req.files && req.files.imageUpload && req.files.imageUpload.name) {
-            let uploadedImage = req.files.imageUpload;
-            const imageName = Date.now() + path.extname(uploadedImage.name);
-            const uploadPath = path.join(__dirname, 'public', 'PostsIMG', imageName);
-            await uploadedImage.mv(uploadPath);
-            imagePath = '/public/PostsIMG/' + imageName;
-        } else if (req.body.imageUrl) {
-            imagePath = req.body.imageUrl;
-        } else {
-            const currentPost = await collection.findOne({ _id: postId });
-            imagePath = currentPost.Image;
-        }
-
-        await collection.updateOne(
-            { _id: postId },
-            {
-                $set: {
-                    Title: req.body.title,
-                    Category: req.body.category,
-                    Description: req.body.description,
-                    Content: req.body.content,
-                    By: req.body.by,
-                    Image: imagePath
-                }
-            }
-        );
-
+    if (req.session.login === undefined) {
         res.redirect("/admin/panel");
-    } catch (error) {
-        console.error("Failed to update post:", error);
-        res.status(500).send("Error updating post");
+    } else {
+        try {
+            await client.connect();
+            const database = client.db(DB);
+            const collection = database.collection(Collection);
+            const postId = new ObjectId(req.params.id);
+    
+            let imagePath;
+            if (req.files && req.files.imageUpload && req.files.imageUpload.name) {
+                let uploadedImage = req.files.imageUpload;
+                const imageName = Date.now() + path.extname(uploadedImage.name);
+                const uploadPath = path.join(__dirname, 'public', 'PostsIMG', imageName);
+                await uploadedImage.mv(uploadPath);
+                imagePath = '/public/PostsIMG/' + imageName;
+            } else if (req.body.imageUrl) {
+                imagePath = req.body.imageUrl;
+            } else {
+                const currentPost = await collection.findOne({ _id: postId });
+                imagePath = currentPost.Image;
+            }
+    
+            await collection.updateOne(
+                { _id: postId },
+                {
+                    $set: {
+                        Title: req.body.title,
+                        Category: req.body.category,
+                        Description: req.body.description,
+                        Content: req.body.content,
+                        By: req.body.by,
+                        Image: imagePath
+                    }
+                }
+            );
+    
+            res.redirect("/admin/panel");
+        } catch (error) {
+            console.error("Failed to update post:", error);
+            res.status(500).send("Error updating post");
+        }
     }
 });
 
 app.post("/admin/delete/:_id", async (req, res) => {
-    try {
-        await client.connect();
-        const database = client.db(DB);
-        const collection = database.collection(Collection);
-        await collection.deleteOne({ _id: new ObjectId(req.params._id) });
+    if (req.session.login === undefined) {
         res.redirect("/admin/panel");
-    } catch (error) {
-        console.error("Failed to delete post:", error);
-        res.status(500).send("Error deleting post");
+    } else {
+        try {
+            await client.connect();
+            const database = client.db(DB);
+            const collection = database.collection(Collection);
+            await collection.deleteOne({ _id: new ObjectId(req.params._id) });
+            res.redirect("/admin/panel");
+        } catch (error) {
+            console.error("Failed to delete post:", error);
+            res.status(500).send("Error deleting post");
+        }
     }
 });
 
